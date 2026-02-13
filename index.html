@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Proposal</title>
+    <title>Valentine Proposal</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #FFB6C1, #FFFFFF); /* Baby pink to white gradient */
-            color: #FF1493; /* Deep pink for text */
+            background: linear-gradient(to bottom, #ffb6c1, #ffffff); /* Baby pink to white gradient */
+            color: #ff1493; /* Deep pink for text */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -19,18 +19,15 @@
         }
         h1 {
             font-size: 3em;
-            margin: 0;
+            margin-bottom: 20px;
         }
-        h2 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .buttons {
-            margin-top: 20px;
+        .question {
+            font-size: 2em;
+            margin-bottom: 40px;
         }
         button {
             font-size: 1.5em;
-            padding: 10px 20px;
+            padding: 15px 30px;
             margin: 10px;
             border: none;
             border-radius: 10px;
@@ -38,85 +35,68 @@
             transition: all 0.3s ease;
         }
         #yes {
-            background-color: #FF69B4; /* Hot pink */
+            background-color: #ff69b4; /* Hot pink */
             color: white;
         }
         #no {
             background-color: white;
-            color: #FF1493;
+            color: #ff1493;
             position: relative;
         }
         .hidden {
             display: none;
         }
-        .celebration {
-            font-size: 2em;
+        .message {
+            font-size: 2.5em;
             margin-top: 20px;
         }
         .gif {
             margin-top: 20px;
         }
         .heart {
-            color: red;
+            color: #ff0000;
             font-size: 2em;
         }
         .tip {
-            font-size: 1.2em;
-            margin-top: 30px;
-            color: #333;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #ff1493;
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-        .animate {
-            animation: bounce 1s infinite;
+        .smiley {
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
     <div id="proposal">
         <h1>Rahul</h1>
-        <h2>will you be my valentine?</h2>
-        <div class="buttons">
-            <button id="yes">Yes</button>
-            <button id="no">No</button>
-        </div>
+        <div class="question">will you be my valentine?</div>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
     </div>
-    <div id="celebration" class="hidden">
-        <div class="celebration">Yay! Best decision ever!</div>
+    <div id="response" class="hidden">
+        <div class="message">yay best decision ever</div>
         <div class="gif">
-            <img src="https://media.giphy.com/media/3o7TKz9bX9v8Z8Z8Z8/giphy.gif" alt="Cute hearts animation" width="300">
+            <img src="https://media.giphy.com/media/3o7TKz9bX9v8zJZGd6/giphy.gif" alt="Cute animation" width="300">
         </div>
-        <div class="celebration">I love you <span class="heart">❤️</span></div>
-    </div>
-    <div class="tip">
-        Tip: 5000 रुपयांनी व्हॅलेंटाईन सेलिब्रेट करायला!
+        <div class="message">i love you <span class="heart">❤️</span></div>
+        <div id="tip" class="tip hidden">
+            ५००० पाठवून दे valentine सेलेब्रेट करायला <span class="smiley">😊</span>
+        </div>
     </div>
 
     <script>
         const yesBtn = document.getElementById('yes');
         const noBtn = document.getElementById('no');
         const proposal = document.getElementById('proposal');
-        const celebration = document.getElementById('celebration');
-        let yesSize = 1.5; // Initial font size multiplier
+        const response = document.getElementById('response');
+        const tip = document.getElementById('tip');
 
-        yesBtn.addEventListener('click', () => {
-            proposal.classList.add('hidden');
-            celebration.classList.remove('hidden');
-            celebration.classList.add('animate');
-        });
+        let yesSize = 1;
 
         noBtn.addEventListener('click', () => {
             // Move No button to random position
-            const x = Math.random() * (window.innerWidth - 100);
+            const x = Math.random() * (window.innerWidth - 200);
             const y = Math.random() * (window.innerHeight - 100);
             noBtn.style.position = 'absolute';
             noBtn.style.left = `${x}px`;
@@ -124,9 +104,29 @@
 
             // Make Yes button bigger
             yesSize += 0.2;
-            yesBtn.style.fontSize = `${yesSize}em`;
-            yesBtn.style.padding = `${10 * yesSize}px ${20 * yesSize}px`;
+            yesBtn.style.transform = `scale(${yesSize})`;
         });
+
+        yesBtn.addEventListener('click', () => {
+            // Hide proposal and show response
+            proposal.classList.add('hidden');
+            response.classList.remove('hidden');
+            tip.classList.remove('hidden');
+
+            // Add cute animation (pulse effect)
+            response.style.animation = 'pulse 1s infinite';
+        });
+
+        // CSS animation for pulse
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
